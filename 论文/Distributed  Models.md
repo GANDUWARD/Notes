@@ -290,7 +290,7 @@ Q值，**Qπθ(si, ai)**，代表了在给定状态si下按照策略πθ采取�
 
 **注意力头的数量**：我们固定神经元数量为128，Transformer编码器和解码器中均包含两层隐藏层，并将注意力头的数量从1到32进行变化。如图15(c)所示，**8个注意力头的神经网络表现最佳**。头越少编码输入的参数不足；头越多会总体提升神经网络复杂度需要更多的试验来训练所有NN参数到合适的值，这导致了**不稳定的训练进度**。
 
-![alt text](<论文图片/Deep Learning-Based Job Placement in Distributed Machine Learning Clusters With Heterogeneous Workloads/深入研究.png>)
+![alt text](<论文图片/Deep Learning-Based Job Placement in Distributed Machine Learning Clusters With Heterogeneous Workloads/训练方法的效果.png>)
 
 
 **价值网络**：为了研究价值网络如何影响训练，我们没有使用价值网络来提供基线，而是在训练策略网络时，用奖励的指数移动平均值作为梯度计算的基线。表二中第一行显示了应用所有训练技术后的平均作业完成时间。我们发现，如果没有价值网络，性能会下降33.04%。这是因为平均奖励并不总是有效的基线；在某些情况下，即使最优动作导致的奖励也低于历史上的平均奖励。
