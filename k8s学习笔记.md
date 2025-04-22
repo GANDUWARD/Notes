@@ -1,3 +1,8 @@
+# windows上一定要先启动docker desktop ，再启动运行minikube start
+
+
+
+
 # 先输入 kubectl cluster-info，出现一个URL表示成功访问集群
 
 
@@ -61,3 +66,23 @@ docker context use minikube
 
 
 最无脑的办法，将其哈希名改成默认所找的那个名字
+
+
+# 要通过minikube命令获取service信息时，出现docker驱动问题，则需要
+
+## 建立隧道 minikube tunnel ，（管理员模式下运行，且不要关闭）
+
+
+## 注意worker节点不应该为load balancer服务只有负载均衡器才是这个服务，一般worker服务作clusterip作为集群内部服务
+
+同时，还有个无脑的办法，使用**端口映射转换**kubectl port-forward svc/worker 5000:5000
+
+
+**获取任意Worker Pod名称**
+**$worker_pod = (kubectl get pods -l app=worker -o jsonpath='{.items[0].metadata.name}')**
+
+**端口转发**
+**kubectl port-forward $worker_pod 5000:5000**
+
+# 新终端测试
+curl http://localhost:5000/health
