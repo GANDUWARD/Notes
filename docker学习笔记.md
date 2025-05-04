@@ -16,3 +16,9 @@
 # 对于镜像要进行更新，先将原来镜像去除 docker rmi neural-worker:v1 -f
 # 重构新镜像docker build -t neural-worker:v1 .
 # 对于k8s，要进行minikube预加载： minikube image load neural-worker:v1
+
+
+# 执行docker build 时，若dockerfile里面有包含 COPY file，但不是包含路径，则默认在命令执行的路径下，因此最好跳转到dockerfile的当前目录执行docker build
+
+
+# docker VOLUME 创建一个docker卷，这个卷不随着所使用镜像容器的消亡而丢失数据。类似公共存储区

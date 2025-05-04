@@ -1,6 +1,7 @@
 # windows上一定要先启动docker desktop ，再启动运行minikube start
 
 
+# 检查服务状态：kubectl get pods -o wide -w
 
 
 # 先输入 kubectl cluster-info，出现一个URL表示成功访问集群
@@ -84,5 +85,25 @@ docker context use minikube
 **端口转发**
 **kubectl port-forward $worker_pod 5000:5000**
 
-# 新终端测试
-curl http://localhost:5000/health
+**新终端测试**
+**curl http://localhost:5000/health**
+
+
+
+# k8s分为几级：
+## Load Balancer NodePort Ingress （只有该级才能从外部网络访问）
+## Cluster IP   Port
+## PodIP  Port
+## NodeIP Port
+
+# k8s的LoadBalancer类型会自动与外部云服务提供商获取外部IP，我们作为学习环境而非生产环境一般提供不了
+
+## 此外，在基于访问k8s集群配置的负载均衡器中，必须为其配备rbac认证，否则将无法访问集群配置，也就无法进行worker节点的映射
+
+# 因此，在学习环境上，我们一般采用端口转发的方式进行暴露和测试
+
+
+PersistentVolumeClaim（PVC）一旦**绑定（Bound）到某个 PersistentVolume（PV）后，除了 resources.requests 和 volumeAttributesClassName，其他字段（比如 volumeName、accessModes、storageClassName 等）都不能更改。
+你的 model-pvc 已经绑定到了一个之前创建的 PV（比如名字是 pvc-xxx），而你现在试图修改它的 volumeName 为 model-pv，这是不允许的，所以报了 Forbidden: spec is immutable。
+
+# 因此有可能会因为pv和pVc没有删除干净导致容器无法正常准备好
